@@ -38,11 +38,6 @@ function init(self)
 	-- this lets us handle input in this script
 	msg.post(".", "acquire_input_focus")
 
-	-- activate camera attached to the player collection
-	-- this will send camera updates to the render script
-	msg.post("camera", "acquire_camera_focus")
-	msg.post("@render:", "use_fixed_projection", { zoom = 2, near = -1, far = 1 })
-
 	-- initial player velocity and acceleration
 	self.velocity = vmath.vector3(0, 0, 0)
 	self.acceleration = vmath.vector3(0, 0, 0)
@@ -59,7 +54,7 @@ local function play_animation(self, anim)
 	if self.anim ~= anim then
 		-- tell the sprite to play the animation
 		--sprite.play_flipbook("#sprite", anim)
-		spine.play_anim("#player",anim,go.PLAYBACK_LOOP_FORWARD)
+		spine.play_anim("#playerspine",anim,go.PLAYBACK_LOOP_FORWARD)
 		-- remember which animation is playing
 		self.anim = anim
 	end

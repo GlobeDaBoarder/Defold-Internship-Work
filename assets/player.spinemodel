@@ -1,5 +1,5 @@
 spine_scene: "/assets/player.spinescene"
-default_animation: ""
+default_animation: "stay_idle"
 skin: ""
 blend_mode: BLEND_MODE_ALPHA
 material: "/builtins/materials/spine.material"

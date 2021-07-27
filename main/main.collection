@@ -1,6 +1,6 @@
 name: "main"
 collection_instances {
-  id: "player"
+  id: "playercoll"
   collection: "/main/player.collection"
   position {
     x: 74.0

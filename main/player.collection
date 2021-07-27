@@ -1,9 +1,9 @@
 name: "default"
 scale_along_z: 0
 embedded_instances {
-  id: "player"
+  id: "playergo"
   data: "components {\n"
-  "  id: \"player\"\n"
+  "  id: \"playerscript\"\n"
   "  component: \"/main/player.script\"\n"
   "  position {\n"
   "    x: 0.0\n"
@@ -18,7 +18,7 @@ embedded_instances {
   "  }\n"
   "}\n"
   "components {\n"
-  "  id: \"player1\"\n"
+  "  id: \"playerspine\"\n"
   "  component: \"/assets/player.spinemodel\"\n"
   "  position {\n"
   "    x: 0.0\n"
@@ -33,7 +33,7 @@ embedded_instances {
   "  }\n"
   "}\n"
   "embedded_components {\n"
-  "  id: \"collisionobject\"\n"
+  "  id: \"playercol\"\n"
   "  type: \"collisionobject\"\n"
   "  data: \"collision_shape: \\\"\\\"\\n"
   "type: COLLISION_OBJECT_TYPE_KINEMATIC\\n"
@@ -114,7 +114,7 @@ embedded_instances {
   }
 }
 embedded_instances {
-  id: "go"
+  id: "camera"
   data: "components {\n"
   "  id: \"camera1\"\n"
   "  component: \"/main/camera.script\"\n"
