@@ -1,0 +1,5 @@
+function init(self)
+	msg.post("#camera", "acquire_camera_focus")
+	go.set_parent(".", "player") -- <3>
+	go.set_position(vmath.vector3(-2750, -1200, 0)) -- <4>
+end
