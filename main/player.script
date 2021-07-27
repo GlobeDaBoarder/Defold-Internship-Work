@@ -47,14 +47,19 @@ function init(self)
 	self.ground_contact = false
 	-- the currently playing animation
 	self.anim = nil
+	self.right = true
 end
 
 local function play_animation(self, anim)
 	-- only play animations which are not already playing
 	if self.anim ~= anim then
 		-- tell the sprite to play the animation
-		--sprite.play_flipbook("#sprite", anim)
-		spine.play_anim("#playerspine",anim,go.PLAYBACK_LOOP_FORWARD)
+		if self.right then
+			spine.play_anim("#playerSpineRight",anim,go.PLAYBACK_LOOP_FORWARD)
+		else
+			spine.play_anim("#playerSpineLeft",anim,go.PLAYBACK_LOOP_FORWARD)
+		end
+		
 		-- remember which animation is playing
 		self.anim = anim
 	end
@@ -183,8 +188,10 @@ end
 
 function on_input(self, action_id, action)
 	if action_id == input_left then
+		self.right = false
 		walk(self, -action.value)
 	elseif action_id == input_right then
+		self.right = true
 		walk(self, action.value)
 	elseif action_id == input_jump then
 		if action.pressed then
