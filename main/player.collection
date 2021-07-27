@@ -2,7 +2,6 @@ name: "default"
 scale_along_z: 0
 embedded_instances {
   id: "player"
-  children: "camera"
   data: "components {\n"
   "  id: \"player\"\n"
   "  component: \"/main/player.script\"\n"
@@ -115,8 +114,23 @@ embedded_instances {
   }
 }
 embedded_instances {
-  id: "camera"
-  data: "embedded_components {\n"
+  id: "go"
+  data: "components {\n"
+  "  id: \"camera1\"\n"
+  "  component: \"/main/camera.script\"\n"
+  "  position {\n"
+  "    x: 0.0\n"
+  "    y: 0.0\n"
+  "    z: 0.0\n"
+  "  }\n"
+  "  rotation {\n"
+  "    x: 0.0\n"
+  "    y: 0.0\n"
+  "    z: 0.0\n"
+  "    w: 1.0\n"
+  "  }\n"
+  "}\n"
+  "embedded_components {\n"
   "  id: \"camera\"\n"
   "  type: \"camera\"\n"
   "  data: \"aspect_ratio: 1.0\\n"
