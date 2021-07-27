@@ -3,8 +3,8 @@ collection_instances {
   id: "player"
   collection: "/main/player.collection"
   position {
-    x: 0.0
-    y: 0.0
+    x: 74.0
+    y: 306.0
     z: 0.0
   }
   rotation {
@@ -14,8 +14,8 @@ collection_instances {
     w: 1.0
   }
   scale3 {
-    x: 1.0
-    y: 1.0
+    x: 0.25
+    y: 0.25
     z: 1.0
   }
 }
