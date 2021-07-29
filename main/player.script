@@ -8,7 +8,7 @@ local gravity = -1900
 -- take-off speed when jumping in pixel units
 local jump_takeoff_speed = 1200
 -- acceleration when on the ground
-local ground_acceleration = 1200
+local ground_acceleration = 1400
 -- deceleration when on the ground
 local ground_deceleration = 1000
 
