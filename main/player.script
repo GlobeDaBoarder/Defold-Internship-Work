@@ -10,7 +10,7 @@ local jump_takeoff_speed = 1200
 -- acceleration when on the ground
 local ground_acceleration = 1200
 -- deceleration when on the ground
-local ground_deceleration = 600
+local ground_deceleration = 1000
 
 
 -- pre-hashing ids improves performance
