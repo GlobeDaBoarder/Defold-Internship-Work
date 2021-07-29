@@ -1,22 +1,30 @@
 local air_acceleration_factor = 0.8
-local max_speed = 500
+-- max speed right/left
+local max_speed = 450
+-- max speed when falling
 local max_fall_speed = -1000
-local gravity = -2300
+-- gravity pulling the player down in pixel units
+local gravity = -1900
+-- take-off speed when jumping in pixel units
 local jump_takeoff_speed = 1200
-local ground_acceleration = 2900
-local ground_deceleration = 2300
+-- acceleration when on the ground
+local ground_acceleration = 1200
+-- deceleration when on the ground
+local ground_deceleration = 600
 
--- pre-hashing ids
+
+-- pre-hashing ids improves performance
 local msg_contact_point_response = hash("contact_point_response")
-local msg_animation_done = hash("spine_animation_done")
+local msg_animation_done = hash("animation_done")
 local group_obstacle = hash("ground")
 local input_left = hash("left")
 local input_right = hash("right")
 local input_jump = hash("jump")
-local anim_walk = hash("walk_right")
-local anim_idle = hash("stay_idle")
-local anim_jump = hash("jump_up")
-local anim_fall = hash("jump_down")
+local anim_walk = hash("walk")
+local anim_idle = hash("idle")
+local anim_jump = hash("jump")
+local anim_fall = hash("fall")
+
 
 local function clamp(v, min, max)
 	return math.max(math.min(v, max), min)
@@ -25,6 +33,10 @@ end
 function init(self)
 	-- this lets us handle input in this script
 	msg.post(".", "acquire_input_focus")
+
+	-- activate camera attached to the player collection
+	-- this will send camera updates to the render script
+	msg.post("camera", "acquire_camera_focus")
 
 	-- initial player velocity and acceleration
 	self.velocity = vmath.vector3(0, 0, 0)
@@ -41,14 +53,15 @@ local function play_animation(self, anim)
 	-- only play animations which are not already playing
 	if self.anim ~= anim then
 		-- tell the sprite to play the animation
-		spine.play_anim("#playerSpine",anim,go.PLAYBACK_LOOP_FORWARD)
-		
+		sprite.play_flipbook("#sprite", anim)
 		-- remember which animation is playing
 		self.anim = anim
 	end
 end
 
 local function update_animations(self)
+	-- make sure the player character faces the right way
+	sprite.set_hflip("#sprite", self.velocity.x < 0)
 	-- make sure the right animation is playing
 	if self.ground_contact then
 		if self.velocity.x == 0 then
