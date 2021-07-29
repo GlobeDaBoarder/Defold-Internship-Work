@@ -15,15 +15,15 @@ local ground_deceleration = 600
 
 -- pre-hashing ids improves performance
 local msg_contact_point_response = hash("contact_point_response")
-local msg_animation_done = hash("animation_done")
+local msg_animation_done = hash("spine_animation_done")
 local group_obstacle = hash("ground")
 local input_left = hash("left")
 local input_right = hash("right")
 local input_jump = hash("jump")
-local anim_walk = hash("walk")
-local anim_idle = hash("idle")
-local anim_jump = hash("jump")
-local anim_fall = hash("fall")
+local anim_walk = hash("walk_right")
+local anim_idle = hash("stay_idle")
+local anim_jump = hash("jump_up")
+local anim_fall = hash("jump_down")
 
 
 local function clamp(v, min, max)
