@@ -1,19 +1,13 @@
 local air_acceleration_factor = 0.9
--- max speed right/left
 local max_speed = 400
--- max speed when falling
 local max_fall_speed = -800
--- gravity pulling the player down in pixel units
 local gravity = -1900
--- take-off speed when jumping in pixel units
 local jump_takeoff_speed = 700
--- acceleration when on the ground
 local ground_acceleration = 1500
--- deceleration when on the ground
 local ground_deceleration = 1000
 
 
--- pre-hashing ids improves performance
+-- pre-hashing ids 
 local msg_contact_point_response = hash("contact_point_response")
 local msg_animation_done = hash("spine_animation_done")
 local group_ground = hash("ground")
@@ -31,22 +25,15 @@ local function clamp(v, min, max)
 end
 
 function init(self)
+	--turning off left=sided spine model
 	msg.post('#playerSpineLeft', 'disable')
-	-- this lets us handle input in this script
 	msg.post(".", "acquire_input_focus")
-
-	-- activate camera attached to the player collection
-	-- this will send camera updates to the render script
 	msg.post("camera", "acquire_camera_focus")
 
-	-- initial player velocity and acceleration
 	self.velocity = vmath.vector3(0, 0, 0)
 	self.acceleration = vmath.vector3(0, 0, 0)
-	-- support variable to keep track of collisions and separation
 	self.correction = vmath.vector3()
-	-- if the player stands on ground or not
 	self.ground_contact = false
-	-- the currently playing animation
 	self.anim = nil
 	self.right = true
 end
@@ -54,13 +41,12 @@ end
 local function play_animation(self, anim)
 	-- only play animations which are not already playing
 	if self.anim ~= anim then
-		-- tell the sprite to play the animation
 		if self.right then
 			spine.play_anim("#playerSpine",anim,go.PLAYBACK_LOOP_FORWARD)
 		else
 			spine.play_anim("#playerSpineLeft",anim,go.PLAYBACK_LOOP_FORWARD)
 		end
-		-- remember which animation is playing
+		-- remember current animation
 		self.anim = anim
 	end
 end
@@ -157,7 +143,6 @@ end
 
 local function jump(self)
 	-- only allow jump from ground
-	-- (extend this with a counter to do things like double-jumps)
 	if self.ground_contact then
 		-- set take-off speed
 		self.velocity.y = jump_takeoff_speed
