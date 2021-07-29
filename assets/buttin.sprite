@@ -1,0 +1,4 @@
+tile_set: "/assets/buttons.atlas"
+default_animation: "btn_all20001"
+material: "/builtins/materials/sprite.material"
+blend_mode: BLEND_MODE_ALPHA

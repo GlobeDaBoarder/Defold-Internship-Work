@@ -19,6 +19,26 @@ collection_instances {
     z: 1.0
   }
 }
+collection_instances {
+  id: "surroundings"
+  collection: "/main/surroundings.collection"
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
 scale_along_z: 0
 embedded_instances {
   id: "level"
@@ -47,6 +67,7 @@ embedded_instances {
   "restitution: 0.5\\n"
   "group: \\\"\\\"\\n"
   "mask: \\\"player\\\"\\n"
+  "mask: \\\"box\\\"\\n"
   "linear_damping: 0.0\\n"
   "angular_damping: 0.0\\n"
   "locked_rotation: false\\n"
