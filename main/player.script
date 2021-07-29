@@ -31,6 +31,7 @@ local function clamp(v, min, max)
 end
 
 function init(self)
+	msg.post('#playerSpineLeft', 'disable')
 	-- this lets us handle input in this script
 	msg.post(".", "acquire_input_focus")
 
@@ -47,13 +48,18 @@ function init(self)
 	self.ground_contact = false
 	-- the currently playing animation
 	self.anim = nil
+	self.right = true
 end
 
 local function play_animation(self, anim)
 	-- only play animations which are not already playing
 	if self.anim ~= anim then
 		-- tell the sprite to play the animation
-		spine.play_anim("#playerSpine",anim,go.PLAYBACK_LOOP_FORWARD)
+		if self.right then
+			spine.play_anim("#playerSpine",anim,go.PLAYBACK_LOOP_FORWARD)
+		else
+			spine.play_anim("#playerSpineLeft",anim,go.PLAYBACK_LOOP_FORWARD)
+		end
 		-- remember which animation is playing
 		self.anim = anim
 	end
@@ -179,8 +185,14 @@ end
 
 function on_input(self, action_id, action)
 	if action_id == input_left then
+		msg.post('#playerSpineLeft', 'enable')
+		msg.post('#playerSpine', 'disable')
+		self.right = false
 		walk(self, -action.value)
 	elseif action_id == input_right then
+		msg.post('#playerSpineLeft', 'disable')
+		msg.post('#playerSpine', 'enable')
+		self.right = true
 		walk(self, action.value)
 	elseif action_id == input_jump then
 		if action.pressed then
