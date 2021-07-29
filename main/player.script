@@ -159,9 +159,7 @@ function on_message(self, message_id, message, sender)
 			handle_obstacle_contact(self, message.normal, message.distance)
 		end
 		if message.group == group_box then
-			print("Box")
 			self.box_contact = true
-			--handle_obstacle_contact(self, message.normal, message.distance)
 		end
 	end
 end
