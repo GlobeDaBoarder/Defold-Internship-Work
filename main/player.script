@@ -2,9 +2,9 @@ local air_acceleration_factor = 0.9
 -- max speed right/left
 local max_speed = 400
 -- max speed when falling
-local max_fall_speed = -1000
+local max_fall_speed = -800
 -- gravity pulling the player down in pixel units
-local gravity = -1500
+local gravity = -1900
 -- take-off speed when jumping in pixel units
 local jump_takeoff_speed = 700
 -- acceleration when on the ground
@@ -16,7 +16,7 @@ local ground_deceleration = 1000
 -- pre-hashing ids improves performance
 local msg_contact_point_response = hash("contact_point_response")
 local msg_animation_done = hash("spine_animation_done")
-local group_obstacle = hash("ground")
+local group_ground = hash("ground")
 local input_left = hash("left")
 local input_right = hash("right")
 local input_jump = hash("jump")
@@ -149,7 +149,7 @@ function on_message(self, message_id, message, sender)
 	-- check if we received a contact point message
 	if message_id == msg_contact_point_response then
 		-- check that the object is something we consider an obstacle
-		if message.group == group_obstacle then
+		if message.group == group_ground then
 			handle_obstacle_contact(self, message.normal, message.distance)
 		end
 	end
