@@ -53,15 +53,13 @@ local function play_animation(self, anim)
 	-- only play animations which are not already playing
 	if self.anim ~= anim then
 		-- tell the sprite to play the animation
-		sprite.play_flipbook("#sprite", anim)
+		spine.play_anim("#playerSpine",anim,go.PLAYBACK_LOOP_FORWARD)
 		-- remember which animation is playing
 		self.anim = anim
 	end
 end
 
 local function update_animations(self)
-	-- make sure the player character faces the right way
-	sprite.set_hflip("#sprite", self.velocity.x < 0)
 	-- make sure the right animation is playing
 	if self.ground_contact then
 		if self.velocity.x == 0 then
