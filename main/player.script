@@ -5,15 +5,21 @@ local gravity = -1900
 local jump_takeoff_speed = 700
 local ground_acceleration = 1500
 local ground_deceleration = 1000
+local box_slowdown_factor = 0.3
 
 
 -- pre-hashing ids 
 local msg_contact_point_response = hash("contact_point_response")
 local msg_animation_done = hash("spine_animation_done")
+
 local group_ground = hash("ground")
+local group_door = hash("door")
+local group_box = hash("box")
+
 local input_left = hash("left")
 local input_right = hash("right")
 local input_jump = hash("jump")
+
 local anim_walk = hash("walk_right")
 local anim_idle = hash("stay_idle")
 local anim_jump = hash("jump_up")
@@ -36,6 +42,7 @@ function init(self)
 	self.ground_contact = false
 	self.anim = nil
 	self.right = true
+	self.box_contact = false
 end
 
 local function play_animation(self, anim)
@@ -68,6 +75,17 @@ local function update_animations(self)
 	end
 end
 
+local function move_player(self, dt)
+	-- move player
+	local pos = go.get_position()
+	if not self.box_contact then
+		pos = pos + self.velocity * dt
+	else
+		pos = pos + self.velocity * dt * box_slowdown_factor
+	end
+	go.set_position(pos)
+end
+
 function update(self, dt)
 	-- apply gravity
 	self.velocity.y = math.max(self.velocity.y + gravity * dt, max_fall_speed)
@@ -83,9 +101,7 @@ function update(self, dt)
 	end
 
 	-- move player
-	local pos = go.get_position()
-	pos = pos + self.velocity * dt
-	go.set_position(pos)
+	move_player(self, dt)
 
 	-- update animations based on state (ground, air, move and idle)
 	update_animations(self)
@@ -94,6 +110,7 @@ function update(self, dt)
 	self.correction = vmath.vector3()
 	self.ground_contact = false
 	self.wall_contact = false
+	self.box_contact = false
 end
 
 -- https://defold.com/manuals/physics/#resolving-kinematic-collisions
@@ -137,6 +154,14 @@ function on_message(self, message_id, message, sender)
 		-- check that the object is something we consider an obstacle
 		if message.group == group_ground then
 			handle_obstacle_contact(self, message.normal, message.distance)
+		end
+		if message.group == group_door then
+			handle_obstacle_contact(self, message.normal, message.distance)
+		end
+		if message.group == group_box then
+			print("Box")
+			self.box_contact = true
+			--handle_obstacle_contact(self, message.normal, message.distance)
 		end
 	end
 end
