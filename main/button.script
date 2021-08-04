@@ -4,6 +4,7 @@ local msg_activate = hash("activate")
 
 function init(self)
 	self.activated = false
+	self.opened = false
 end
 
 function final(self)
@@ -12,6 +13,11 @@ end
 function update(self, dt)
 	if self.activated then
 		sprite.play_flipbook("#button", "btn_all20002")
+		if not self.opened then
+			print("msg")
+			msg.post("/surroundings/door", "open")
+			self.opened = true
+		end
 	else
 		sprite.play_flipbook("#button", "btn_all20001")
 	end

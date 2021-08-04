@@ -1,9 +1,9 @@
 local air_acceleration_factor = 0.9
-local max_speed = 380
+local max_speed = 340
 local max_fall_speed = -800
 local gravity = -1900
 local jump_takeoff_speed = 700
-local ground_acceleration = 2200
+local ground_acceleration = 2500
 local ground_deceleration = 1400
 local box_slowdown_factor = 0.3
 

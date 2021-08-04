@@ -1,0 +1,32 @@
+local msg_open = hash("open")
+
+function init(self)
+	self.move = false
+	self.speed = 50
+end
+
+function final(self)
+
+end
+
+function update(self, dt)
+	if self.move then
+		local pos = go.get_position()
+		pos.y = pos.y - self.speed * dt
+		go.set_position(pos)
+	end
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == msg_open then
+		self.move = true
+	end		
+end
+
+function on_input(self, action_id, action)
+
+end
+
+function on_reload(self)
+
+end
