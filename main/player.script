@@ -1,10 +1,10 @@
 local air_acceleration_factor = 0.9
-local max_speed = 400
+local max_speed = 380
 local max_fall_speed = -800
 local gravity = -1900
 local jump_takeoff_speed = 700
-local ground_acceleration = 1500
-local ground_deceleration = 1000
+local ground_acceleration = 2200
+local ground_deceleration = 1400
 local box_slowdown_factor = 0.3
 
 
@@ -174,7 +174,7 @@ local function jump(self)
 		self.ground_contact = false
 	end
 end
-
+--[[
 local function abort_jump(self)
 	-- cut the jump short if we are still going up
 	if self.velocity.y > 0 then
@@ -182,7 +182,7 @@ local function abort_jump(self)
 		self.velocity.y = self.velocity.y * 0.5
 	end
 end
-
+--]]
 local function walk(self, direction)
 	self.acceleration.x = direction * ground_acceleration
 	-- slow down horizontal movement when in the air
@@ -203,10 +203,6 @@ function on_input(self, action_id, action)
 		self.right = true
 		walk(self, action.value)
 	elseif action_id == input_jump then
-		if action.pressed then
-			jump(self)
-		elseif action.released then
-			abort_jump(self)
-		end
+		jump(self)
 	end
 end
