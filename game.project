@@ -15,7 +15,7 @@ input_method = HiddenInputField
 title = SpyProject
 
 [physics]
-debug = 1
+debug = 0
 gravity_y = -1000.0
 scale = 0.01
 
