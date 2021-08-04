@@ -1,0 +1,34 @@
+
+--pre-hashing
+local msg_activate = hash("activate")
+
+function init(self)
+	self.activated = false
+end
+
+function final(self)
+end
+
+function update(self, dt)
+	if self.activated then
+		sprite.play_flipbook("#button", "btn_all20002")
+	else
+		sprite.play_flipbook("#button", "btn_all20001")
+	end
+
+	self.activated = false
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == msg_activate then
+		self.activated = true;
+	end		
+end
+
+function on_input(self, action_id, action)
+
+end
+
+function on_reload(self)
+
+end

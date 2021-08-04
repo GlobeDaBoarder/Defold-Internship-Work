@@ -151,11 +151,6 @@ local function handle_obstacle_contact(self, normal, distance)
 	end
 end
 
-local function activate_button(self)
-	sprite.play_flipbook("/button#button", "btn_all20004" )
-end
-
-
 function on_message(self, message_id, message, sender)
 	-- check if we received a contact point message
 	if message_id == msg_contact_point_response then
@@ -171,8 +166,7 @@ function on_message(self, message_id, message, sender)
 			self.box_contact = true
 		end
 		if message.group == group_button then
-			print ("Butoonn")
-			activate_button(self)
+			msg.post("/surroundings/button#button1", "activate")
 		end
 	end
 end
