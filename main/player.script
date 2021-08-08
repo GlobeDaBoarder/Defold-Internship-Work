@@ -43,6 +43,7 @@ function init(self)
 	self.acceleration = vmath.vector3(0, 0, 0)
 	self.correction = vmath.vector3()
 	self.ground_contact = false
+	self.wall_contact = false
 	self.anim = nil
 	self.right = true
 	self.box_contact = false

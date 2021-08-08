@@ -3,8 +3,8 @@ collection_instances {
   id: "playercoll"
   collection: "/main/player.collection"
   position {
-    x: 81.0
-    y: 96.0
+    x: 561.0
+    y: 215.0
     z: 0.0
   }
   rotation {
@@ -68,6 +68,7 @@ embedded_instances {
   "group: \\\"\\\"\\n"
   "mask: \\\"player\\\"\\n"
   "mask: \\\"box\\\"\\n"
+  "mask: \\\"kinbox\\\"\\n"
   "linear_damping: 0.0\\n"
   "angular_damping: 0.0\\n"
   "locked_rotation: false\\n"
