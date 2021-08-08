@@ -138,6 +138,7 @@ local function handle_obstacle_contact(self, normal, distance)
 	if math.abs(normal.x) > 0.7 then
 		self.wall_contact = true
 		self.velocity.x = 0
+		play_animation(self, anim_idle)		
 	end
 	-- collided with the ground
 	-- stop vertical movement

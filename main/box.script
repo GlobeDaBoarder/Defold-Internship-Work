@@ -5,6 +5,7 @@ local max_fall_speed = -700
 local msg_contact_point_response = hash("contact_point_response")
 local group_ground = hash("ground")
 local group_door = hash("door")
+local group_player = hash("player")
 
 function init(self)
 	self.velocity = vmath.vector3(0, 0, 0)
@@ -72,6 +73,9 @@ function on_message(self, message_id, message, sender)
 		-- check that the object is something we consider an obstacle
 		if message.group == group_ground then
 			handle_obstacle_contact(self, message.normal, message.distance)
+		end
+		if message.group == group_player then
+			print ("contact")
 		end
 	end
 end
