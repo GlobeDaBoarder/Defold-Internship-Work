@@ -10,13 +10,15 @@ local group_player = hash("player")
 function init(self)
 	self.velocity = vmath.vector3(0, 0, 0)
 	self.correction = vmath.vector3()
+	self.wall_contact = false
+	self.player_contact = false
 end
 
 function final(self)
 
 end
 
-local function move_player(self, dt)
+local function move_box(self, dt)
 	-- move player
 	local pos = go.get_position()
 	pos = pos + self.velocity * dt
@@ -29,12 +31,13 @@ function update(self, dt)
 
 	self.correction = vmath.vector3()
 	self.wall_contact = false
+	self.velocity.x = 0
 
 	-- move player
-	move_player(self, dt)
+	move_box(self, dt)
 end
 
-local function handle_obstacle_contact(self, normal, distance)
+local function handle_ground_contact(self, normal, distance)
 	if distance > 0 then
 		-- First, project the accumulated correction onto
 		-- the penetration vector
@@ -52,6 +55,8 @@ local function handle_obstacle_contact(self, normal, distance)
 	-- collided with a wall
 	-- stop horizontal movement
 	if math.abs(normal.x) > 0.7 then
+		print ("wall")
+		msg.post("/playercoll/playergo#playerscript", "stop_player")
 		self.wall_contact = true
 		self.velocity.x = 0
 	end
@@ -68,14 +73,28 @@ local function handle_obstacle_contact(self, normal, distance)
 	end
 end
 
+local function handle_player_contact(self, normal, distance)
+	if distance > 0 then
+		-- First, project the accumulated correction onto
+		-- the penetration vector
+		local proj = vmath.project(self.correction, normal * distance)
+		-- Only care for projections that does not overshoot.
+		local comp = (distance - distance * proj) * normal
+		-- Apply compensation
+		go.set_position(go.get_position() + comp)
+		-- Accumulate correction done
+		self.correction = self.correction + comp
+	end
+end
+
 function on_message(self, message_id, message, sender)
 	if message_id == msg_contact_point_response then
 		-- check that the object is something we consider an obstacle
 		if message.group == group_ground then
-			handle_obstacle_contact(self, message.normal, message.distance)
+			handle_ground_contact(self, message.normal, message.distance)
 		end
 		if message.group == group_player then
-			print ("contact")
+			handle_player_contact(self, message.normal, message.distance)
 		end
 	end
 end
