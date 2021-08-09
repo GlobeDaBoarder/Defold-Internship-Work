@@ -17,7 +17,7 @@ local group_door = hash("door")
 local group_box = hash("box")
 local group_button = hash("button")
 local group_star = hash("star")
-local group_stop_player = hash("stop_player")
+
 
 
 local input_left = hash("left")
@@ -170,11 +170,6 @@ function on_message(self, message_id, message, sender)
 		if message.group == group_button then
 			msg.post("/surroundings/button#button1", "activate")
 		end
-		if message.group == group_stop_player then
-			print ("recieved")
-			self.velocity.x = 0
-		end
-	end
 end
 
 local function jump(self)

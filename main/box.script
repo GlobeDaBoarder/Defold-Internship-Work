@@ -56,7 +56,7 @@ local function handle_ground_contact(self, normal, distance)
 	-- stop horizontal movement
 	if math.abs(normal.x) > 0.7 then
 		print ("wall")
-		msg.post("/playercoll/playergo#playerscript", "stop_player")
+
 		self.wall_contact = true
 		self.velocity.x = 0
 	end
