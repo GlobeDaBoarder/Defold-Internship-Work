@@ -19,7 +19,6 @@ local group_button = hash("button")
 local group_star = hash("star")
 
 
-
 local input_left = hash("left")
 local input_right = hash("right")
 local input_jump = hash("jump")
@@ -170,6 +169,7 @@ function on_message(self, message_id, message, sender)
 		if message.group == group_button then
 			msg.post("/surroundings/button#button1", "activate")
 		end
+	end
 end
 
 local function jump(self)
