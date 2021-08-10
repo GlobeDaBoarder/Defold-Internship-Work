@@ -1,0 +1,19 @@
+local msg_delete = hash("delete")
+
+function init(self)
+	self.colided = false
+end
+
+function update(self, dt)
+	if self.colided then
+		print ("recieved")
+		msg.post("/gui#gui", "add_score")
+		go.delete("/surroundings/star3", true)
+	end
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == msg_delete then
+		self.colided = true
+	end	
+end

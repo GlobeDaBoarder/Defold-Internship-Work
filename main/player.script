@@ -16,7 +16,9 @@ local group_ground = hash("ground")
 local group_door = hash("door")
 local group_box = hash("box")
 local group_button = hash("button")
-local group_star = hash("star")
+local group_star1 = hash("star1")
+local group_star2 = hash("star2")
+local group_star3 = hash("star3")
 
 
 local input_left = hash("left")
@@ -168,6 +170,18 @@ function on_message(self, message_id, message, sender)
 		end
 		if message.group == group_button then
 			msg.post("/surroundings/button#button1", "activate")
+		end
+		if message.group == group_star1 then
+			print("star")
+			msg.post("/surroundings/star1#star1", "delete")
+		end
+		if message.group == group_star2 then
+			print("star")
+			msg.post("/surroundings/star2#star2", "delete")
+		end
+		if message.group == group_star3 then
+			print("star")
+			msg.post("/surroundings/star3#star3", "delete")
 		end
 	end
 end
